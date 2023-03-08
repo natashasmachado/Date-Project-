@@ -42,9 +42,36 @@ struct Date {
         }
         
     }
-}
-
-enum DateFormat {
-    case standard, long, two
-}
-
+    mutating func input() {
+        while true {
+            print("Type the date")
+        if let info = readLine() {
+            let array = info.components(separatedBy: "/")
+            if array.count == 3 {
+                var numbs = [0,0,0]
+                if let m = Int(array[0]) {
+                    numbs[0] = m
+                } else {
+                    print("Invalid input")
+                }
+                if let d = Int(array[1]) {
+                    numbs[1] = d
+                } else {
+                        print("Invalid input")
+                }
+                if let y = Int(array[2]) {
+                    numbs[2] = y
+                } else {
+                        print("Invalid input")
+                    
+                }
+                
+            }
+        }
+        
+    }
+    
+    enum DateFormat {
+        case standard, long, two
+    }
+    
