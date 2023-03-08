@@ -65,29 +65,43 @@ struct Date {
                         print("Invalid input")
                     }
                     func show() {
-//                        if Date == self.Date {
-//                            print() // for the standard form just print itself
-//                        } else {
-                            let array = info.components(separatedBy: "/")
-                            if array.count == 3 {
-                                var numbs = [0,0,0]
-                                if let m = Int(array[0]) { // for month form 1..9 add 0 before
-                                    if m == 1 || m == 2 || m == 3 || m == 4 || m = 5 || m == 6 || m == 7 || m == 8 || m == 9 {
-                                        Int.insert(0)
-                                    } else {
-                                        m = self.month
-                                    }
-                                    }
-                                    
-                                    
+                        //                        struct Standard
+                        //                        if Date == self.Date {
+                        //                            print() // for the standard form just print itself
+                        //                        } else {
+                        class TwoDigit
+                        let array = info.components(separatedBy: "/")
+                        if array.count == 3 {
+                            var numbs = [0,0,0]
+                            var chzero: Character = "0"
+                            if let m = String(array[0]) { // for month form 1..9 add 0 before
+                                if m == 1 || m == 2 || m == 3 || m == 4 || m = 5 || m == 6 || m == 7 || m == 8 || m == 9 {
+                                    var i = m.index(m.startIndex, offsetBy: 1)
+                                    m.insert(chzero, at: i)
+                                } else {
+                                    m = self.m
                                 }
-                                
-                                
-                                
-                                
-                                
-                                enum DateFormat {
-                                    case standard, long, two
-                                }
-                                
                             }
+                            if let d = String(array[2]) {
+                                if d == 1 || d == 2 || d == 3 || d == 4 || d = 5 || d == 6 || d == 7 || d == 8 || d == 9 {
+                                    var i = m.index(m.startIndex, offsetBy: 1)
+                                    d.insert(chzero, at: i)
+                                } else {
+                                    d = self.d
+                                }
+                            }
+                            var twoDigYear = 0
+                            if let y = String(array[3]) {
+                                let index = y.index(y.startIndex, offsetBy: 2)
+                                y.suffix(from: index)
+                                twoDigYear = y
+                            }
+                            
+                            
+                            
+                            
+                            enum DateFormat {
+                                case standard, long, two
+                            }
+                            
+                        }
