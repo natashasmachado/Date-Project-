@@ -11,6 +11,7 @@ struct Date {
     var month: Int
     var day: Int
     var year: Int
+    var format = DateFormat.standard 
     init (day: Int = 1 , month: Int = 1 , year: Int = 2000) {
         self.month = min(max(month, 1), 12)
         if month < 1 && month > 12 {
@@ -64,44 +65,49 @@ struct Date {
                     } else {
                         print("Invalid input")
                     }
-                    func show() {
-                        //                        struct Standard
-                        //                        if Date == self.Date {
-                        //                            print() // for the standard form just print itself
-                        //                        } else {
-                        class TwoDigit
-                        let array = info.components(separatedBy: "/")
-                        if array.count == 3 {
-                            var numbs = [0,0,0]
-                            var chzero: Character = "0"
-                            if let m = String(array[0]) { // for month form 1..9 add 0 before
-                                if m == 1 || m == 2 || m == 3 || m == 4 || m = 5 || m == 6 || m == 7 || m == 8 || m == 9 {
-                                    var i = m.index(m.startIndex, offsetBy: 1)
-                                    m.insert(chzero, at: i)
-                                } else {
-                                    m = self.m
-                                }
-                            }
-                            if let d = String(array[2]) {
-                                if d == 1 || d == 2 || d == 3 || d == 4 || d = 5 || d == 6 || d == 7 || d == 8 || d == 9 {
-                                    var i = m.index(m.startIndex, offsetBy: 1)
-                                    d.insert(chzero, at: i)
-                                } else {
-                                    d = self.d
-                                }
-                            }
-                            var twoDigYear = 0
-                            if let y = String(array[3]) {
-                                let index = y.index(y.startIndex, offsetBy: 2)
-                                y.suffix(from: index)
-                                twoDigYear = y
-                            }
-                            
-                            
-                            
-                            
-                            enum DateFormat {
-                                case standard, long, two
-                            }
-                            
-                        }
+                    
+                    
+                }
+            }
+        }
+    }
+    func show() {
+        switch format {
+        case .standard:
+            print(month + "/" + day + "/" + year )
+        case .two :
+            let array = info.components(separatedBy: "/")
+            if array.count == 3 {
+                var numbs = [0,0,0]
+                var chzero: Character = "0"
+                if let m = String(array[0]) { // for month form 1..9 add 0 before
+                    if m == 1 || m == 2 || m == 3 || m == 4 || m = 5 || m == 6 || m == 7 || m == 8 || m == 9 {
+                        var i = m.index(m.startIndex, offsetBy: 1)
+                        m.insert(chzero, at: i)
+                    } else {
+                        m = self.m
+                    }
+                }
+                if let d = String(array[2]) {
+                    if d == 1 || d == 2 || d == 3 || d == 4 || d = 5 || d == 6 || d == 7 || d == 8 || d == 9 {
+                        var i = m.index(m.startIndex, offsetBy: 1)
+                        d.insert(chzero, at: i)
+                    } else {
+                        d = self.d
+                    }
+                }
+                var twoDigYear = 0
+                if let y = String(array[3]) {
+                    let index = y.index(y.startIndex, offsetBy: 2)
+                    y.suffix(from: index)
+                    twoDigYear = y
+                }
+            }
+        case .long :
+            
+            
+            enum DateFormat {
+                case standard, long, two
+            }
+            
+        }
