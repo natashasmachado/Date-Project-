@@ -45,33 +45,49 @@ struct Date {
     mutating func input() {
         while true {
             print("Type the date")
-        if let info = readLine() {
-            let array = info.components(separatedBy: "/")
-            if array.count == 3 {
-                var numbs = [0,0,0]
-                if let m = Int(array[0]) {
-                    numbs[0] = m
-                } else {
-                    print("Invalid input")
-                }
-                if let d = Int(array[1]) {
-                    numbs[1] = d
-                } else {
+            if let info = readLine() {
+                let array = info.components(separatedBy: "/")
+                if array.count == 3 {
+                    var numbs = [0,0,0]
+                    if let m = Int(array[0]) {
+                        numbs[0] = m
+                    } else {
                         print("Invalid input")
-                }
-                if let y = Int(array[2]) {
-                    numbs[2] = y
-                } else {
+                    }
+                    if let d = Int(array[1]) {
+                        numbs[1] = d
+                    } else {
                         print("Invalid input")
-                    
-                }
-                
-            }
-        }
-        
-    }
-    
-    enum DateFormat {
-        case standard, long, two
-    }
-    
+                    }
+                    if let y = Int(array[2]) {
+                        numbs[2] = y
+                    } else {
+                        print("Invalid input")
+                    }
+                    func show() {
+//                        if Date == self.Date {
+//                            print() // for the standard form just print itself
+//                        } else {
+                            let array = info.components(separatedBy: "/")
+                            if array.count == 3 {
+                                var numbs = [0,0,0]
+                                if let m = Int(array[0]) { // for month form 1..9 add 0 before
+                                    if m == 1 || m == 2 || m == 3 || m == 4 || m = 5 || m == 6 || m == 7 || m == 8 || m == 9 {
+                                        Int.insert(0)
+                                    } else {
+                                        m = self.month
+                                    }
+                                    }
+                                    
+                                    
+                                }
+                                
+                                
+                                
+                                
+                                
+                                enum DateFormat {
+                                    case standard, long, two
+                                }
+                                
+                            }
