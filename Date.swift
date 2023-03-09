@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Date {
+
+struct Date: Comparable {
     var month: Int
     var day: Int
     var year: Int
@@ -106,6 +107,53 @@ struct Date {
         return true
     }
     
+    mutating func increment(_ numDays: Int = 1) { // could've used the dateComponents ?
+        var addDays = numDays
+        while addDays > 0 {
+            let remainDays = daysMonth(month: month) - day  // % days left
+            if remainDays < addDays  {
+                addDays -= remainDays + 1
+                day = 1
+                if month < 12 {
+                    month  += 1
+                } else {
+                    year += 1
+                    month = 1
+                }
+            } else {
+                day += addDays
+                addDays = 0
+            }
+        }
+    }
+    
+    static func <(lhs: Date, rhs: Date) -> Bool {
+        if lhs.year < rhs.year {
+            return true
+        } else if  lhs.year > rhs.year {
+            return false
+        }
+        if lhs.month < rhs.month {
+            return true
+        } else if lhs.month > rhs.month {
+            return false
+        }
+        if lhs.day < rhs.day {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    static func ==(lhs: Date, rhs: Date) -> Bool {
+        if lhs.day == rhs.day && lhs.month == rhs.month && lhs.year == rhs.year {
+            return true
+        }
+        return false
+    }
+    
+    
+    
     func show() {
         switch format {
         case .standard:
@@ -163,7 +211,6 @@ struct Date {
         }
     }
 }
-
 
 
 enum DateFormat {
