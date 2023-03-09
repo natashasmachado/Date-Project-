@@ -11,23 +11,23 @@ struct Date {
     var month: Int
     var day: Int
     var year: Int
-    var format = DateFormat.standard 
+    var format = DateFormat.standard
     init (day: Int = 1 , month: Int = 1 , year: Int = 2000) {
         self.month = min(max(month, 1), 12)
-        if month < 1 && month > 12 {
+        if month < 1 && month >= 12 {
             self.month = 1
             self.day = 1
             self.year = 2000
         } else {
             self.month = month
         }
-        self.year = min(max(year, 1900), 2500)
+        self.year = min(max(year, 0), 9999)
         if year < 1900 && year > 2500 {
             self.month = 1
             self.day = 1
             self.year = 2000
         }
-        if day < 1 && day > 31 {
+        if day < 1 && day >= 31 {
             self.day = 1
         } else {
             self.day = day
@@ -41,7 +41,16 @@ struct Date {
         } else {
             limit = 30
         }
-        
+    }
+    func daysMonth(month: Int)  -> Int {
+        switch month {
+        case 1 , 3 , 5 , 7 , 8 , 10 , 12 :
+            return 31
+        case 2 :
+            return 28
+        default :
+            return 30
+        }
     }
     mutating func input() {
         while true {
@@ -54,60 +63,109 @@ struct Date {
                         numbs[0] = m
                     } else {
                         print("Invalid input")
+                        continue
                     }
                     if let d = Int(array[1]) {
                         numbs[1] = d
                     } else {
                         print("Invalid input")
+                        continue
                     }
                     if let y = Int(array[2]) {
                         numbs[2] = y
                     } else {
                         print("Invalid input")
+                        continue
                     }
-                    
-                    
+                    if numbs[0] < 1 && numbs[0] > 12 {
+                        print("Invalid input")
+                        continue
+                    }
+                    if numbs[1] < 1 && numbs[1] > daysMonth(month: numbs[0]) {
+                        print("Invalid input")
+                        continue
+                    }
+                    if numbs[2] < 1900 && numbs[2] > 9999 {
+                        print("Invalid input")
+                        continue
+                    }
+                    month = numbs[0] ; day = numbs[1] ; year = numbs[2]
                 }
             }
         }
     }
+    mutating func set(month: Int, day: Int, year: Int) -> Bool {
+        if month < 1 || month > 12 {
+            return false }
+        if day < 1 || day > daysMonth(month: month) {
+            return false
+        }
+        if year < 1 || year > 9999 {
+            return false
+        }
+        return true
+    }
+    
     func show() {
         switch format {
         case .standard:
-            print(month + "/" + day + "/" + year )
+            print("\(month)/\(day)/\(year)")
         case .two :
-            let array = info.components(separatedBy: "/")
-            if array.count == 3 {
-                var numbs = [0,0,0]
-                var chzero: Character = "0"
-                if let m = String(array[0]) { // for month form 1..9 add 0 before
-                    if m == 1 || m == 2 || m == 3 || m == 4 || m = 5 || m == 6 || m == 7 || m == 8 || m == 9 {
-                        var i = m.index(m.startIndex, offsetBy: 1)
-                        m.insert(chzero, at: i)
-                    } else {
-                        m = self.m
-                    }
-                }
-                if let d = String(array[2]) {
-                    if d == 1 || d == 2 || d == 3 || d == 4 || d = 5 || d == 6 || d == 7 || d == 8 || d == 9 {
-                        var i = m.index(m.startIndex, offsetBy: 1)
-                        d.insert(chzero, at: i)
-                    } else {
-                        d = self.d
-                    }
-                }
-                var twoDigYear = 0
-                if let y = String(array[3]) {
-                    let index = y.index(y.startIndex, offsetBy: 2)
-                    y.suffix(from: index)
-                    twoDigYear = y
-                }
+            var m = String(month)
+            var d = String(day)
+            var y = String(year)
+            if month > 10 {
+                m.insert("0", at: m.startIndex)
             }
+            if day > 10 {
+                d.insert("0", at: d.startIndex)
+            }
+            y = String(y.suffix(2))
+            print("\(m)/\(d)/\(y)")
         case .long :
-            
-            
-            enum DateFormat {
-                case standard, long, two
+            var m = String(month)
+            if  month == 1 {
+                m = "Jan"
             }
-            
+            if month == 2 {
+                m = "Feb"
+            }
+            if month == 3 {
+                m = "Mar"
+            }
+            if month == 4 {
+                m = "Apr"
+            }
+            if month == 5 {
+                m = "May"
+            }
+            if month == 6 {
+                m = "Jun"
+            }
+            if month == 7 {
+                m = "Jul"
+            }
+            if  month == 8 {
+                m = "Aug"
+            }
+            if month == 9 {
+                m = "Sep"
+            }
+            if month == 10 {
+                m = "Oct"
+            }
+            if month == 11 {
+                m = "Nov"
+            }
+            if month == 12 {
+                m = "Dec"
+            }
         }
+    }
+}
+
+
+
+enum DateFormat {
+    case standard, two, long
+}
