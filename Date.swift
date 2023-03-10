@@ -144,11 +144,11 @@ public struct Date: Comparable, CustomStringConvertible { // struct with the pro
     }
   }
   
-  mutating func setFormat(_ format: DateFormat) {
+  mutating func setFormat(_ format: DateFormat) { // default to standard format
     self.format = format
   }
   
-  public static func <(lhs: Date, rhs: Date) -> Bool {
+  public static func <(lhs: Date, rhs: Date) -> Bool { // func to compare higher
     if lhs.year < rhs.year {
       return true
     } else if  lhs.year > rhs.year {
@@ -166,7 +166,7 @@ public struct Date: Comparable, CustomStringConvertible { // struct with the pro
     }
   }
   
-  public static func ==(lhs: Date, rhs: Date) -> Bool {
+  public static func ==(lhs: Date, rhs: Date) -> Bool { // function to compare
     if lhs.day == rhs.day && lhs.month == rhs.month && lhs.year == rhs.year {
       return true
     }
@@ -177,9 +177,9 @@ public struct Date: Comparable, CustomStringConvertible { // struct with the pro
   
   public func show() {
     switch format {
-    case .standard:
+    case .standard: // default case stantard
       print("\(month)/\(day)/\(year)")
-    case .two :
+    case .two : // adding the zero before
       var m = String(month)
       var d = String(day)
       var y = String(year)
@@ -191,7 +191,7 @@ public struct Date: Comparable, CustomStringConvertible { // struct with the pro
       }
       y = String(y.suffix(2))
       print("\(m)/\(d)/\(y)")
-    case .long :
+    case .long : // //add the description of the month
       var m = String(month)
       if  month == 1 {
         m = "Jan"
