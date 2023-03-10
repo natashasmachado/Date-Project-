@@ -8,7 +8,7 @@
 import Foundation
 
 var d1 = Date()            // January 1, 2000
-var d2 = Date(month: 4, day: 10, year: 1992) // April 10, 1992
+var d2 = Date(month: 2, day: 30, year: 1992) // April 10, 1992
 
 print(d1.year)     // this is okay
 // d1.year = 2002  // this is not okay (compile-error!)
@@ -29,4 +29,5 @@ print("increment by 365...")
 d1.increment(365)
 d1.show()
 
+print (d1==d2)
 // and so on... Add your own tests to fully test the functionalities.

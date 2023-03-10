@@ -8,42 +8,54 @@
 import Foundation
 
 
-struct Date: Comparable {
+public struct Date: Comparable, CustomStringConvertible { // struct with the protocols to be followed
   var month: Int
   var day: Int
   var year: Int
   var format = DateFormat.standard
-  init (month: Int = 1 , day: Int = 1 , year: Int = 2000) {
+  public var description: String {
+    return "\(month)/\(day)/\(year)"
+  }
+  init (month: Int = 1 , day: Int = 1 , year: Int = 2000) { // init with the types
     self.month = min(max(month, 1), 12)
-    if month < 1 && month >= 12 {
+    if month < 1 || month > 12 {  // set the range of month + default value
       self.month = 1
       self.day = 1
       self.year = 2000
+      return
     } else {
       self.month = month
     }
-    self.year = min(max(year, 0), 9999)
-    if year < 1900 && year > 2500 {
-      self.month = 1
-      self.day = 1
-      self.year = 2000
-    }
-    if day < 1 && day >= 31 {
-      self.day = 1
-    } else {
-      self.day = day
-    }
     var limit = -1
-    if month == 2 {
+    if month == 2 {  // execeptions of shorter months
       limit = 28
     }
-    if month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 {
+    if month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 { // execeptions of shorter months
       limit = 31
     } else {
       limit = 30
     }
+    if day < 1 || day > limit {  // out range set to default values
+      self.month = 1
+      self.day = 1
+      self.year = 2000
+      return
+    } else {
+      self.day = day
+    }
+    self.year = min(max(year, 0), 9999) // as not mentioned I settle a value to year + default
+    if year < 1900 && year > 2500 {
+      self.month = 1
+      self.day = 1
+      self.year = 2000
+    } else {
+     
+      
+      self.year = year
+    }
   }
-  func daysMonth(month: Int)  -> Int {
+  
+   private func daysMonth(month: Int)  -> Int { // function to specific cases of months/days
     switch month {
     case 1 , 3 , 5 , 7 , 8 , 10 , 12 :
       return 31
@@ -53,13 +65,14 @@ struct Date: Comparable {
       return 30
     }
   }
-  mutating func input() {
+  
+  mutating public func input() {
     while true {
-      print("Enter a date (month/day/year):")
+      print("Enter a date (month/day/year):") // get the input value
       if let info = readLine() {
-        let array = info.components(separatedBy: "/")
+        let array = info.components(separatedBy: "/") // get the input and add to an array
         if array.count == 3 {
-          var numbs = [0,0,0]
+          var numbs = [0,0,0]        // store the value in a variable that I use to check 
           if let m = Int(array[0]) {
             numbs[0] = m
           } else {
@@ -78,25 +91,28 @@ struct Date: Comparable {
             print("Invalid input")
             continue
           }
-          if numbs[0] < 1 && numbs[0] > 12 {
+          if (numbs[0]) < 1 || (numbs[0]) > 12 {
             print("Invalid input")
             continue
           }
-          if numbs[1] < 1 && numbs[1] > daysMonth(month: numbs[0]) {
+          if numbs[1] < 1 || numbs[1] > daysMonth(month: numbs[0]) {
             print("Invalid input")
             continue
           }
-          if numbs[2] < 1900 && numbs[2] > 9999 {
+          if numbs[2] < 1900 || numbs[2] > 9999 {
             print("Invalid input")
             continue
           }
           month = numbs[0] ; day = numbs[1] ; year = numbs[2]
+        } else {
+          print("INVALID INPUT")
+          continue
         }
       }
       break
     }
   }
-  mutating func set(month: Int, day: Int, year: Int) -> Bool {
+  mutating public func set(month: Int, day: Int, year: Int) -> Bool {
     if month < 1 || month > 12 {
       return false }
     if day < 1 || day > daysMonth(month: month) {
@@ -108,7 +124,7 @@ struct Date: Comparable {
     return true
   }
   
-  mutating func increment(_ numDays: Int = 1) { // could've used the dateComponents ?
+  mutating public func increment(_ numDays: Int = 1) { // could've used the dateComponents ?
     var addDays = numDays
     while addDays > 0 {
       let remainDays = daysMonth(month: month) - day  // % days left
@@ -132,7 +148,7 @@ struct Date: Comparable {
     self.format = format
   }
   
-  static func <(lhs: Date, rhs: Date) -> Bool {
+  public static func <(lhs: Date, rhs: Date) -> Bool {
     if lhs.year < rhs.year {
       return true
     } else if  lhs.year > rhs.year {
@@ -150,7 +166,7 @@ struct Date: Comparable {
     }
   }
   
-  static func ==(lhs: Date, rhs: Date) -> Bool {
+  public static func ==(lhs: Date, rhs: Date) -> Bool {
     if lhs.day == rhs.day && lhs.month == rhs.month && lhs.year == rhs.year {
       return true
     }
@@ -159,7 +175,7 @@ struct Date: Comparable {
   
   
   
-  func show() {
+  public func show() {
     switch format {
     case .standard:
       print("\(month)/\(day)/\(year)")
