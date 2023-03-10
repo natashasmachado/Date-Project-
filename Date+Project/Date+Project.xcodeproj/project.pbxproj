@@ -28,6 +28,7 @@
 		6E644FC629B8122900ED8A55 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = ../../main.swift; sourceTree = "<group>"; };
 		6E644FC729B8122900ED8A55 /* sample.out */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sample.out; path = ../../sample.out; sourceTree = "<group>"; };
 		6E644FC829B8122900ED8A55 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Date.swift; path = ../../Date.swift; sourceTree = "<group>"; };
+		6E94FC5029BB9DCA00866093 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +61,7 @@
 		6E644FBE29B8120D00ED8A55 /* Date+Project */ = {
 			isa = PBXGroup;
 			children = (
+				6E94FC5029BB9DCA00866093 /* README.md */,
 				6E644FC829B8122900ED8A55 /* Date.swift */,
 				6E644FC629B8122900ED8A55 /* main.swift */,
 				6E644FC729B8122900ED8A55 /* sample.out */,

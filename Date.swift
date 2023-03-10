@@ -9,10 +9,10 @@ import Foundation
 
 
 public struct Date: Comparable, CustomStringConvertible { // struct with the protocols to be followed
-  var month: Int
-  var day: Int
-  var year: Int
-  var format = DateFormat.standard
+  private(set) var month: Int
+  private(set) var day: Int
+  private(set) var year: Int
+  private(set) var format = DateFormat.standard
   public var description: String {
     return "\(month)/\(day)/\(year)"
   }
@@ -49,13 +49,13 @@ public struct Date: Comparable, CustomStringConvertible { // struct with the pro
       self.day = 1
       self.year = 2000
     } else {
-     
+      
       
       self.year = year
     }
   }
   
-   private func daysMonth(month: Int)  -> Int { // function to specific cases of months/days
+  private func daysMonth(month: Int)  -> Int { // function to specific cases of months/days
     switch month {
     case 1 , 3 , 5 , 7 , 8 , 10 , 12 :
       return 31
@@ -72,7 +72,7 @@ public struct Date: Comparable, CustomStringConvertible { // struct with the pro
       if let info = readLine() {
         let array = info.components(separatedBy: "/") // get the input and add to an array
         if array.count == 3 {
-          var numbs = [0,0,0]        // store the value in a variable that I use to check 
+          var numbs = [0,0,0]        // store the value in a [] that I use to check
           if let m = Int(array[0]) {
             numbs[0] = m
           } else {
@@ -112,9 +112,11 @@ public struct Date: Comparable, CustomStringConvertible { // struct with the pro
       break
     }
   }
+  
   mutating public func set(month: Int, day: Int, year: Int) -> Bool {
     if month < 1 || month > 12 {
-      return false }
+      return false
+    }
     if day < 1 || day > daysMonth(month: month) {
       return false
     }
@@ -129,16 +131,16 @@ public struct Date: Comparable, CustomStringConvertible { // struct with the pro
     while addDays > 0 {
       let remainDays = daysMonth(month: month) - day  // % days left
       if remainDays < addDays  {
-        addDays -= remainDays + 1
+        addDays -= remainDays + 1 // to start a new month
         day = 1
         if month < 12 {
           month  += 1
-        } else {
+        } else { // to start a new year
           year += 1
           month = 1
         }
       } else {
-        day += addDays
+        day += addDays // if not just add the days
         addDays = 0
       }
     }
@@ -148,7 +150,7 @@ public struct Date: Comparable, CustomStringConvertible { // struct with the pro
     self.format = format
   }
   
-  public static func <(lhs: Date, rhs: Date) -> Bool { // func to compare higher
+  public static func <(lhs: Date, rhs: Date) -> Bool { // func to compare higher ><
     if lhs.year < rhs.year {
       return true
     } else if  lhs.year > rhs.year {
@@ -166,7 +168,7 @@ public struct Date: Comparable, CustomStringConvertible { // struct with the pro
     }
   }
   
-  public static func ==(lhs: Date, rhs: Date) -> Bool { // function to compare
+  public static func ==(lhs: Date, rhs: Date) -> Bool { // function to compare ===
     if lhs.day == rhs.day && lhs.month == rhs.month && lhs.year == rhs.year {
       return true
     }
