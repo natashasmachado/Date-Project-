@@ -8,7 +8,7 @@
 import Foundation
 
 
-public struct Date: Comparable, CustomStringConvertible { // struct with the protocols to be followed
+public struct Date: Comparable, Equatable, CustomStringConvertible { // struct with the protocols to be followed
   private(set) var month: Int
   private(set) var day: Int
   private(set) var year: Int
